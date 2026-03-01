@@ -366,29 +366,47 @@ ol {
   padding: 0;
   z-index: 1003;
   position: fixed;
-  top: var(--space-lg);
+  top: calc(env(safe-area-inset-top, 12px) + 12px);
   right: var(--space-lg);
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(15, 22, 41, 0.7);
+  background: rgba(15, 22, 41, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 2px solid;
+  border-image: var(--gradient-cta) 1;
+  border-image: none;
+  border-color: rgba(124, 92, 252, 0.5);
+  box-shadow: 0 0 20px rgba(124, 92, 252, 0.3), 0 4px 16px rgba(0, 0, 0, 0.4);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: hamburger-pulse 3s ease-in-out infinite;
+}
+
+@keyframes hamburger-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(124, 92, 252, 0.3), 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 30px rgba(124, 92, 252, 0.5), 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
 }
 
 .nav__hamburger:active {
   transform: scale(0.92);
+  animation: none;
 }
 
 .nav__hamburger.active {
-  background: rgba(124, 92, 252, 0.2);
-  border-color: rgba(124, 92, 252, 0.3);
-  box-shadow: 0 4px 24px rgba(124, 92, 252, 0.25);
+  background: rgba(124, 92, 252, 0.3);
+  border-color: rgba(124, 92, 252, 0.6);
+  box-shadow: 0 0 30px rgba(124, 92, 252, 0.4), 0 4px 16px rgba(0, 0, 0, 0.4);
+  animation: none;
 }
 
 .nav__hamburger span {
@@ -1554,15 +1572,20 @@ body.menu-open {
     flex-direction: column;
     align-items: stretch;
     width: 100%;
-    max-width: 320px;
+    max-width: 100%;
+    padding: 0 var(--space-md);
     margin: 0 auto;
     gap: var(--space-sm);
+    box-sizing: border-box;
   }
 
   .hero__actions .btn-primary,
   .hero__actions .btn-secondary {
     width: 100%;
     justify-content: center;
+    padding: 0.9rem 1.5rem;
+    font-size: var(--text-sm);
+    box-sizing: border-box;
   }
 
   .hero__stat-value {
