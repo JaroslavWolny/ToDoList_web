@@ -140,21 +140,39 @@
   // ──────────── Mobile Nav Toggle ────────────
   const navToggle = document.getElementById('nav-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
+  const mobileBackdrop = document.getElementById('mobile-backdrop');
+
+  function openMobileMenu() {
+    mobileMenu.classList.add('open');
+    if (mobileBackdrop) mobileBackdrop.classList.add('open');
+    navToggle.classList.add('active');
+    document.body.classList.add('menu-open');
+  }
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    if (mobileBackdrop) mobileBackdrop.classList.remove('open');
+    navToggle.classList.remove('active');
+    document.body.classList.remove('menu-open');
+  }
 
   if (navToggle && mobileMenu) {
     navToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-      navToggle.classList.toggle('active');
-      document.body.classList.toggle('menu-open');
+      if (mobileMenu.classList.contains('open')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
     });
+
+    // Close on backdrop click
+    if (mobileBackdrop) {
+      mobileBackdrop.addEventListener('click', closeMobileMenu);
+    }
 
     // Close on link click
     mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-        navToggle.classList.remove('active');
-        document.body.classList.remove('menu-open');
-      });
+      link.addEventListener('click', closeMobileMenu);
     });
   }
 
