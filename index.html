@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuestDo — Turn Your To-Do List Into an Epic RPG Quest</title>
+  <meta name="description"
+    content="QuestDo transforms boring task management into an addictive RPG adventure. Level up, build streaks, earn XP, and conquer your goals. Available as a PWA.">
+  <meta property="og:title" content="QuestDo — Where Productivity Meets Adventure">
+  <meta property="og:description"
+    content="Turn your mundane daily to-dos into an epic RPG quest! Level up your life, build unbreakable streaks, and conquer your goals.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://questdo-eta.vercel.app">
+  <meta name="theme-color" content="#0a0e1a">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/app-icon.png">
+</head>
+
+<body>
+
+  <!-- Ambient Background -->
+  <canvas id="particles-canvas"></canvas>
+  <div class="bg-glow bg-glow--purple"></div>
+  <div class="bg-glow bg-glow--blue"></div>
+  <div class="bg-glow bg-glow--pink"></div>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#" class="nav__logo">
+        <img src="assets/app-icon.png" alt="QuestDo" class="nav__logo-img">
+        QuestDo
+      </a>
+
+      <div class="nav__links">
+        <a href="#features" class="nav__link">Features</a>
+        <a href="#showcase" class="nav__link">Showcase</a>
+        <a href="#how-it-works" class="nav__link">How It Works</a>
+        <a href="#testimonials" class="nav__link">Reviews</a>
+        <a href="#download" class="nav__cta">Get Started Free</a>
+      </div>
+
+      <button class="nav__hamburger" id="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="nav__mobile-menu" id="mobile-menu">
+      <a href="#features" class="nav__mobile-link">Features</a>
+      <a href="#showcase" class="nav__mobile-link">Showcase</a>
+      <a href="#how-it-works" class="nav__mobile-link">How It Works</a>
+      <a href="#testimonials" class="nav__mobile-link">Reviews</a>
+      <a href="#download" class="btn-primary" style="margin-top: 1rem;">Get Started Free</a>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="hero">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <div class="hero__badge reveal">
+          <span class="hero__badge-dot"></span>
+          Now available as PWA — Install anywhere
+        </div>
+
+        <h1 class="hero__title reveal reveal-delay-1">
+          Turn Your Tasks<br>
+          Into an <span class="gradient-text">Epic Quest</span>
+        </h1>
+
+        <p class="hero__subtitle reveal reveal-delay-2">
+          Stop just checking boxes. QuestDo transforms your to-do list into an addictive RPG adventure.
+          Earn XP, build streaks, level up, and finally crush your goals.
+        </p>
+
+        <div class="hero__actions reveal reveal-delay-3">
+          <a href="https://questdo-eta.vercel.app" target="_blank" class="btn-primary">
+            ⚔️ Start Your Quest
+          </a>
+          <a href="#features" class="btn-secondary">
+            Explore Features →
+          </a>
+        </div>
+
+        <div class="hero__stats reveal reveal-delay-4">
+          <div class="hero__stat">
+            <span class="hero__stat-value">50K+</span>
+            <span class="hero__stat-label">Quests Completed</span>
+          </div>
+          <div class="hero__stat">
+            <span class="hero__stat-value">4.9★</span>
+            <span class="hero__stat-label">User Rating</span>
+          </div>
+          <div class="hero__stat">
+            <span class="hero__stat-value">100%</span>
+            <span class="hero__stat-label">Free & Open Source</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__visual reveal reveal-delay-2">
+        <div class="hero__glow-ring"></div>
+        <span class="hero__float hero__float--1">⚡</span>
+        <span class="hero__float hero__float--2">🏆</span>
+        <span class="hero__float hero__float--3">🔥</span>
+
+        <div class="phone-mockup">
+          <div class="phone-mockup__notch"></div>
+          <img src="assets/screen-dashboard.png" alt="QuestDo Dashboard" class="phone-mockup__screen" loading="eager">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FEATURES ==================== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="features__header reveal">
+        <span class="section-label">Epic Features</span>
+        <h2 class="section-title">Everything You Need to<br><span class="gradient-text">Level Up Your Life</span></h2>
+        <p class="section-subtitle">
+          Packed with RPG mechanics that transform boring task management into an addictive adventure.
+        </p>
+      </div>
+
+      <div class="features__grid">
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="feature-card__icon feature-card__icon--purple">⚔️</div>
+          <h3 class="feature-card__title">XP & Leveling</h3>
+          <p class="feature-card__desc">Every task is a quest. Earn XP, fill your bar, level up. The progressive XP
+            curve makes every rank feel like a true achievement.</p>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="feature-card__icon feature-card__icon--orange">🔥</div>
+          <h3 class="feature-card__title">Streaks & Combos</h3>
+          <p class="feature-card__desc">Build daily streaks to unlock XP multipliers. Chain tasks in quick succession to
+            activate Combo Mode and skyrocket your progress.</p>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-3">
+          <div class="feature-card__icon feature-card__icon--green">🏆</div>
+          <h3 class="feature-card__title">Achievements</h3>
+          <p class="feature-card__desc">Collect beautiful badges as you hit major milestones. From "First Blood" to
+            "Unstoppable" — there's always a new goal to unlock.</p>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-4">
+          <div class="feature-card__icon feature-card__icon--pink">❤️</div>
+          <h3 class="feature-card__title">Health System</h3>
+          <p class="feature-card__desc">Missed a deadline? You'll take damage. Keep your HP high by staying on top of
+            your tasks. Drop to zero and face the consequences.</p>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-5">
+          <div class="feature-card__icon feature-card__icon--cyan">📊</div>
+          <h3 class="feature-card__title">Deep Analytics</h3>
+          <p class="feature-card__desc">Activity heatmaps, XP growth charts, and achievement showcases visualize your
+            entire productivity journey at a glance.</p>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-6">
+          <div class="feature-card__icon feature-card__icon--blue">🎁</div>
+          <h3 class="feature-card__title">Loot Drops</h3>
+          <p class="feature-card__desc">Every completed task gives you a chance to discover hidden treasure — from Lucky
+            Pouches to rare Chests overflowing with bonus XP and Coins.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SHOWCASE ==================== -->
+  <section class="showcase" id="showcase">
+    <div class="container">
+      <div class="showcase__header reveal">
+        <span class="section-label">App Showcase</span>
+        <h2 class="section-title">Beautiful, Powerful,<br><span class="gradient-text">Designed for You</span></h2>
+        <p class="section-subtitle">
+          Every screen is crafted to make productivity feel like a premium gaming experience.
+        </p>
+      </div>
+    </div>
+
+    <div class="showcase__track-wrapper">
+      <div class="showcase__track" id="showcase-track">
+        <div class="showcase__item">
+          <div class="showcase__phone">
+            <div class="showcase__phone-notch"></div>
+            <img src="assets/screen-dashboard.png" alt="Dashboard" class="showcase__screen" loading="lazy">
+          </div>
+          <p class="showcase__label">Dashboard</p>
+        </div>
+
+        <div class="showcase__item">
+          <div class="showcase__phone">
+            <div class="showcase__phone-notch"></div>
+            <img src="assets/screen-tasks.png" alt="Tasks" class="showcase__screen" loading="lazy">
+          </div>
+          <p class="showcase__label">Tasks</p>
+        </div>
+
+        <div class="showcase__item">
+          <div class="showcase__phone">
+            <div class="showcase__phone-notch"></div>
+            <img src="assets/screen-stats.png" alt="Statistics" class="showcase__screen" loading="lazy">
+          </div>
+          <p class="showcase__label">Statistics</p>
+        </div>
+
+        <div class="showcase__item">
+          <div class="showcase__phone">
+            <div class="showcase__phone-notch"></div>
+            <img src="assets/screen-achievements.png" alt="Achievements" class="showcase__screen" loading="lazy">
+          </div>
+          <p class="showcase__label">Achievements</p>
+        </div>
+
+        <div class="showcase__item">
+          <div class="showcase__phone">
+            <div class="showcase__phone-notch"></div>
+            <img src="assets/screen-settings.png" alt="Settings" class="showcase__screen" loading="lazy">
+          </div>
+          <p class="showcase__label">Settings</p>
+        </div>
+      </div>
+
+      <div class="showcase__dots" id="showcase-dots">
+        <button class="showcase__dot active" data-index="0" aria-label="Go to slide 1"></button>
+        <button class="showcase__dot" data-index="1" aria-label="Go to slide 2"></button>
+        <button class="showcase__dot" data-index="2" aria-label="Go to slide 3"></button>
+        <button class="showcase__dot" data-index="3" aria-label="Go to slide 4"></button>
+        <button class="showcase__dot" data-index="4" aria-label="Go to slide 5"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== HOW IT WORKS ==================== -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="how-it-works__header reveal">
+        <span class="section-label">How It Works</span>
+        <h2 class="section-title">Start Your Adventure<br><span class="gradient-text">In 3 Simple Steps</span></h2>
+        <p class="section-subtitle">
+          From zero to hero in minutes. No complicated setup, no account required.
+        </p>
+      </div>
+
+      <div class="how-it-works__steps">
+        <div class="step-card reveal reveal-delay-1">
+          <div class="step-card__number">📲</div>
+          <h3 class="step-card__title">Install the App</h3>
+          <p class="step-card__desc">Visit the web app and install it as a PWA. Works offline, runs natively on any
+            device — no app store needed.</p>
+        </div>
+
+        <div class="step-card reveal reveal-delay-2">
+          <div class="step-card__number">✅</div>
+          <h3 class="step-card__title">Complete Tasks</h3>
+          <p class="step-card__desc">Add your daily tasks, set priorities, and complete them to earn XP, coins, and
+            random loot drops. Build your streak!</p>
+        </div>
+
+        <div class="step-card reveal reveal-delay-3">
+          <div class="step-card__number">🚀</div>
+          <h3 class="step-card__title">Level Up</h3>
+          <p class="step-card__desc">Watch your character grow, unlock achievements, and track your productivity journey
+            through beautiful stats and charts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIALS ==================== -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="testimonials__header reveal">
+        <span class="section-label">User Reviews</span>
+        <h2 class="section-title">Loved by <span class="gradient-text">Productive Gamers</span></h2>
+        <p class="section-subtitle">
+          See what adventurers around the world are saying about their QuestDo experience.
+        </p>
+      </div>
+
+      <div class="testimonials__grid">
+        <div class="testimonial-card reveal reveal-delay-1">
+          <div class="testimonial-card__stars">★★★★★</div>
+          <p class="testimonial-card__text">"I've tried every to-do app out there. QuestDo is the first one that
+            actually makes me WANT to complete my tasks. The streak system is insanely addictive."</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">MK</div>
+            <div>
+              <p class="testimonial-card__name">Marcus K.</p>
+              <p class="testimonial-card__role">Software Engineer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal reveal-delay-2">
+          <div class="testimonial-card__stars">★★★★★</div>
+          <p class="testimonial-card__text">"The gamification is brilliant. My kids and I compete for the highest
+            streaks. It turned household chores into a family game. Level 42 and counting!"</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">SL</div>
+            <div>
+              <p class="testimonial-card__name">Sarah L.</p>
+              <p class="testimonial-card__role">Product Designer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal reveal-delay-3">
+          <div class="testimonial-card__stars">★★★★★</div>
+          <p class="testimonial-card__text">"Open source, offline-first, and beautifully designed. QuestDo respects my
+            privacy while keeping me insanely productive. The achievement system is chefs kiss."</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">AJ</div>
+            <div>
+              <p class="testimonial-card__name">Alex J.</p>
+              <p class="testimonial-card__role">Freelance Writer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA / DOWNLOAD ==================== -->
+  <section class="cta" id="download">
+    <div class="container">
+      <div class="cta__card reveal">
+        <h2 class="cta__title">Ready to <span class="gradient-text">Begin Your Quest?</span></h2>
+        <p class="cta__subtitle">
+          Join thousands of adventurers who turned their boring to-do lists into epic RPG quests. Free, open source, and
+          works everywhere.
+        </p>
+
+        <div class="cta__buttons">
+          <a href="https://questdo-eta.vercel.app" target="_blank" class="store-badge">
+            <span class="store-badge__icon">🌐</span>
+            <div class="store-badge__text">
+              <span class="store-badge__label">Launch in</span>
+              <span class="store-badge__name">Web Browser</span>
+            </div>
+          </a>
+
+          <a href="https://questdo-eta.vercel.app" target="_blank" class="store-badge">
+            <span class="store-badge__icon">📲</span>
+            <div class="store-badge__text">
+              <span class="store-badge__label">Install as</span>
+              <span class="store-badge__name">PWA App</span>
+            </div>
+          </a>
+
+          <a href="https://github.com/JaroslavWolny/ToDoList_new" target="_blank" class="store-badge">
+            <span class="store-badge__icon">⭐</span>
+            <div class="store-badge__text">
+              <span class="store-badge__label">Star on</span>
+              <span class="store-badge__name">GitHub</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="assets/app-icon.png" alt="QuestDo" class="footer__brand-img">
+        QuestDo
+      </div>
+
+      <div class="footer__links">
+        <a href="https://github.com/JaroslavWolny/ToDoList_new" target="_blank" class="footer__link">GitHub</a>
+        <a href="https://questdo-eta.vercel.app" target="_blank" class="footer__link">Launch App</a>
+        <a href="#features" class="footer__link">Features</a>
+        <a href="#showcase" class="footer__link">Showcase</a>
+      </div>
+
+      <p class="footer__copy">© 2026 QuestDo. Open Source under MIT License.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
