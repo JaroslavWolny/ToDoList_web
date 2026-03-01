@@ -59,58 +59,71 @@
   </nav>
 
   <!-- ==================== HERO ==================== -->
-  <section class="hero" id="hero">
-    <div class="container hero__inner">
-      <div class="hero__content">
-        <div class="hero__badge reveal">
-          <span class="hero__badge-dot"></span>
-          Now available as PWA — Install anywhere
+  <section class="hero-scroll-wrapper" id="hero-scroll-wrapper">
+    <div class="hero" id="hero">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <div class="hero__badge reveal">
+            <span class="hero__badge-dot"></span>
+            Now available as PWA — Install anywhere
+          </div>
+
+          <h1 class="hero__title reveal reveal-delay-1">
+            Turn Your Tasks<br>
+            Into an <span class="gradient-text">Epic Quest</span>
+          </h1>
+
+          <p class="hero__subtitle reveal reveal-delay-2">
+            Stop just checking boxes. QuestDo transforms your to-do list into an addictive RPG adventure.
+            Earn XP, build streaks, level up, and finally crush your goals.
+          </p>
+
+          <div class="hero__actions reveal reveal-delay-3">
+            <a href="https://questdo-eta.vercel.app" target="_blank" class="btn-primary">
+              ⚔️ Start Your Quest
+            </a>
+            <a href="#features" class="btn-secondary">
+              Explore Features →
+            </a>
+          </div>
+
+          <div class="hero__stats reveal reveal-delay-4">
+            <div class="hero__stat">
+              <span class="hero__stat-value">50K+</span>
+              <span class="hero__stat-label">Quests Completed</span>
+            </div>
+            <div class="hero__stat">
+              <span class="hero__stat-value">4.9★</span>
+              <span class="hero__stat-label">User Rating</span>
+            </div>
+            <div class="hero__stat">
+              <span class="hero__stat-value">100%</span>
+              <span class="hero__stat-label">Free & Open Source</span>
+            </div>
+          </div>
         </div>
 
-        <h1 class="hero__title reveal reveal-delay-1">
-          Turn Your Tasks<br>
-          Into an <span class="gradient-text">Epic Quest</span>
-        </h1>
+        <div class="hero__visual reveal reveal-delay-2">
+          <div class="hero__glow-ring"></div>
+          <span class="hero__float hero__float--1">⚡</span>
+          <span class="hero__float hero__float--2">🏆</span>
+          <span class="hero__float hero__float--3">🔥</span>
 
-        <p class="hero__subtitle reveal reveal-delay-2">
-          Stop just checking boxes. QuestDo transforms your to-do list into an addictive RPG adventure.
-          Earn XP, build streaks, level up, and finally crush your goals.
-        </p>
-
-        <div class="hero__actions reveal reveal-delay-3">
-          <a href="https://questdo-eta.vercel.app" target="_blank" class="btn-primary">
-            ⚔️ Start Your Quest
-          </a>
-          <a href="#features" class="btn-secondary">
-            Explore Features →
-          </a>
-        </div>
-
-        <div class="hero__stats reveal reveal-delay-4">
-          <div class="hero__stat">
-            <span class="hero__stat-value">50K+</span>
-            <span class="hero__stat-label">Quests Completed</span>
+          <div class="phone-mockup" id="hero-phone">
+            <div class="phone-mockup__notch"></div>
+            <div class="phone-mockup__screen-wrapper">
+              <img src="assets/screen-dashboard.png" alt="QuestDo Dashboard" class="phone-mockup__screen hero-screen"
+                loading="eager">
+              <img src="assets/screen-tasks.png" alt="QuestDo Tasks" class="phone-mockup__screen hero-screen"
+                loading="eager">
+              <img src="assets/screen-stats.png" alt="QuestDo Stats" class="phone-mockup__screen hero-screen"
+                loading="eager">
+              <img src="assets/screen-achievements.png" alt="QuestDo Achievements"
+                class="phone-mockup__screen hero-screen" loading="eager">
+              <img src="assets/screen-settings.png" alt="QuestDo Settings" class="phone-mockup__screen hero-screen"
+                loading="eager">
+            </div>
           </div>
-          <div class="hero__stat">
-            <span class="hero__stat-value">4.9★</span>
-            <span class="hero__stat-label">User Rating</span>
-          </div>
-          <div class="hero__stat">
-            <span class="hero__stat-value">100%</span>
-            <span class="hero__stat-label">Free & Open Source</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero__visual reveal reveal-delay-2">
-        <div class="hero__glow-ring"></div>
-        <span class="hero__float hero__float--1">⚡</span>
-        <span class="hero__float hero__float--2">🏆</span>
-        <span class="hero__float hero__float--3">🔥</span>
-
-        <div class="phone-mockup">
-          <div class="phone-mockup__notch"></div>
-          <img src="assets/screen-dashboard.png" alt="QuestDo Dashboard" class="phone-mockup__screen" loading="eager">
         </div>
       </div>
     </div>
@@ -226,6 +239,22 @@
           </div>
           <p class="showcase__label">Settings</p>
         </div>
+
+        <div class="showcase__item">
+          <div class="showcase__phone">
+            <div class="showcase__phone-notch"></div>
+            <img src="assets/screen-avatar-shop.png" alt="Avatar Shop" class="showcase__screen" loading="lazy">
+          </div>
+          <p class="showcase__label">Avatar Shop</p>
+        </div>
+
+        <div class="showcase__item">
+          <div class="showcase__phone">
+            <div class="showcase__phone-notch"></div>
+            <img src="assets/screen-new-task.png" alt="New Task" class="showcase__screen" loading="lazy">
+          </div>
+          <p class="showcase__label">New Task</p>
+        </div>
       </div>
 
       <div class="showcase__dots" id="showcase-dots">
@@ -234,6 +263,8 @@
         <button class="showcase__dot" data-index="2" aria-label="Go to slide 3"></button>
         <button class="showcase__dot" data-index="3" aria-label="Go to slide 4"></button>
         <button class="showcase__dot" data-index="4" aria-label="Go to slide 5"></button>
+        <button class="showcase__dot" data-index="5" aria-label="Go to slide 6"></button>
+        <button class="showcase__dot" data-index="6" aria-label="Go to slide 7"></button>
       </div>
     </div>
   </section>
@@ -249,26 +280,42 @@
         </p>
       </div>
 
-      <div class="how-it-works__steps">
-        <div class="step-card reveal reveal-delay-1">
-          <div class="step-card__number">📲</div>
-          <h3 class="step-card__title">Install the App</h3>
-          <p class="step-card__desc">Visit the web app and install it as a PWA. Works offline, runs natively on any
-            device — no app store needed.</p>
+      <div class="how-it-works__grid">
+        <div class="how-it-works__steps vertical-steps">
+          <div class="step-card reveal reveal-delay-1">
+            <div class="step-card__number">📲</div>
+            <div class="step-card__content">
+              <h3 class="step-card__title">Install the App</h3>
+              <p class="step-card__desc">Visit the web app and install it as a PWA. Works offline, runs natively on any
+                device — no app store needed.</p>
+            </div>
+          </div>
+
+          <div class="step-card reveal reveal-delay-2">
+            <div class="step-card__number">✅</div>
+            <div class="step-card__content">
+              <h3 class="step-card__title">Complete Tasks</h3>
+              <p class="step-card__desc">Add your daily tasks, set priorities, and complete them to earn XP, coins, and
+                random loot drops. Build your streak!</p>
+            </div>
+          </div>
+
+          <div class="step-card reveal reveal-delay-3">
+            <div class="step-card__number">🚀</div>
+            <div class="step-card__content">
+              <h3 class="step-card__title">Level Up</h3>
+              <p class="step-card__desc">Watch your character grow, unlock achievements, and track your productivity
+                journey
+                through beautiful stats and charts.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="step-card reveal reveal-delay-2">
-          <div class="step-card__number">✅</div>
-          <h3 class="step-card__title">Complete Tasks</h3>
-          <p class="step-card__desc">Add your daily tasks, set priorities, and complete them to earn XP, coins, and
-            random loot drops. Build your streak!</p>
-        </div>
-
-        <div class="step-card reveal reveal-delay-3">
-          <div class="step-card__number">🚀</div>
-          <h3 class="step-card__title">Level Up</h3>
-          <p class="step-card__desc">Watch your character grow, unlock achievements, and track your productivity journey
-            through beautiful stats and charts.</p>
+        <div class="how-it-works__visual reveal reveal-delay-4">
+          <div class="showcase__phone" style="margin: 0 auto;">
+            <div class="showcase__phone-notch"></div>
+            <img src="assets/screen-new-task.png" alt="New Task" class="showcase__screen" loading="lazy">
+          </div>
         </div>
       </div>
     </div>

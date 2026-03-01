@@ -240,4 +240,67 @@
 
   statValues.forEach(el => counterObserver.observe(el));
 
+  // ──────────── Hero Scroll-Driven Animation ────────────
+  const heroScrollWrapper = document.getElementById('hero-scroll-wrapper');
+  const heroScreens = document.querySelectorAll('.hero-screen');
+  let heroTicking = false;
+
+  function updateHeroAnimation() {
+    if (!heroScrollWrapper || heroScreens.length === 0) return;
+
+    const rect = heroScrollWrapper.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const scrollableDistance = heroScrollWrapper.offsetHeight - windowHeight;
+
+    // progress is 0 when the wrapper top is at viewport top, 1 when viewport reaches the wrapper bottom
+    let progress = -rect.top / scrollableDistance;
+    progress = Math.max(0, Math.min(1, progress));
+
+    const totalTransitions = heroScreens.length - 1;
+    const currentSegment = progress * totalTransitions;
+    const activeIndex = Math.floor(currentSegment);
+    const segmentProgress = currentSegment - activeIndex;
+
+    heroScreens.forEach((screen, index) => {
+      // We want previous images to slide up and fade out, next to slide up and fade in
+      if (index === activeIndex) {
+        // active screen fading out as we scroll down to next segment
+        screen.style.opacity = 1; // It's visible, starts fading out halfway maybe? Actually let's keep it visible and just slide
+        screen.style.transform = `translateY(${-segmentProgress * 10}%) scale(${1 - segmentProgress * 0.05})`;
+        screen.style.zIndex = Math.round(5 - segmentProgress);
+        // fade out slightly near the end of segment
+        if (segmentProgress > 0.5) {
+          screen.style.opacity = 1 - (segmentProgress - 0.5) * 2;
+        } else {
+          screen.style.opacity = 1;
+        }
+      } else if (index === activeIndex + 1) {
+        // next screen sliding in from bottom
+        screen.style.opacity = segmentProgress < 0.5 ? segmentProgress * 2 : 1;
+        screen.style.transform = `translateY(${(1 - segmentProgress) * 15}%) scale(${0.95 + segmentProgress * 0.05})`;
+        screen.style.zIndex = 10;
+      } else if (index < activeIndex) {
+        screen.style.opacity = 0;
+        screen.style.transform = `translateY(-15%) scale(0.95)`;
+        screen.style.zIndex = 1;
+      } else {
+        screen.style.opacity = 0;
+        screen.style.transform = `translateY(15%) scale(0.95)`;
+        screen.style.zIndex = 1;
+      }
+    });
+
+    heroTicking = false;
+  }
+
+  if (heroScrollWrapper && heroScreens.length > 0) {
+    updateHeroAnimation();
+    window.addEventListener('scroll', () => {
+      if (!heroTicking) {
+        window.requestAnimationFrame(updateHeroAnimation);
+        heroTicking = true;
+      }
+    }, { passive: true });
+  }
+
 })();
