@@ -145,6 +145,7 @@
     navToggle.addEventListener('click', () => {
       mobileMenu.classList.toggle('open');
       navToggle.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
     });
 
     // Close on link click
@@ -152,6 +153,7 @@
       link.addEventListener('click', () => {
         mobileMenu.classList.remove('open');
         navToggle.classList.remove('active');
+        document.body.classList.remove('menu-open');
       });
     });
   }
