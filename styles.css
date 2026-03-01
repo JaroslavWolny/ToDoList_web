@@ -1543,8 +1543,17 @@ body.menu-open {
   }
 
   /* --- HERO MOBILE: Phone on top (original layout) --- */
+  .hero-scroll-wrapper {
+    height: auto;
+  }
+
   .hero {
-    padding-top: var(--space-xl);
+    position: relative;
+    height: auto;
+    min-height: 100vh;
+    padding-top: var(--space-4xl);
+    padding-bottom: var(--space-4xl);
+    overflow: visible;
   }
 
   .hero__visual {

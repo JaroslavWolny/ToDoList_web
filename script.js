@@ -268,6 +268,16 @@
   function updateHeroAnimation() {
     if (!heroScrollWrapper || heroScreens.length === 0) return;
 
+    if (window.innerWidth <= 768) {
+      heroScreens.forEach((screen, index) => {
+        screen.style.opacity = index === 0 ? 1 : 0;
+        screen.style.transform = 'none';
+        screen.style.zIndex = index === 0 ? 10 : 1;
+      });
+      heroTicking = false;
+      return;
+    }
+
     const rect = heroScrollWrapper.getBoundingClientRect();
     const windowHeight = window.innerHeight;
     const scrollableDistance = heroScrollWrapper.offsetHeight - windowHeight;
