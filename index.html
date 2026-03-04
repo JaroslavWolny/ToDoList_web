@@ -45,12 +45,6 @@
     </div>
   </nav>
 
-  <button class="nav__hamburger" id="nav-toggle" aria-label="Toggle menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-
   <!-- Mobile Menu (outside nav to avoid stacking context issues) -->
   <div class="nav__mobile-backdrop" id="mobile-backdrop"></div>
   <div class="nav__mobile-menu" id="mobile-menu">
@@ -60,6 +54,30 @@
     <a href="#testimonials" class="nav__mobile-link">Reviews</a>
     <a href="#download" class="btn-primary">Get Started Free</a>
   </div>
+
+  <!-- Mobile HUD -->
+  <div class="mobile-progress" aria-hidden="true">
+    <span class="mobile-progress__bar" id="mobile-progress-bar"></span>
+  </div>
+
+  <nav class="mobile-dock" id="mobile-dock" aria-label="Quick mobile navigation">
+    <a href="#hero" class="mobile-dock__link is-active" data-target="hero">
+      <span class="mobile-dock__icon">⚔️</span>
+      <span class="mobile-dock__label">Home</span>
+    </a>
+    <a href="#features" class="mobile-dock__link" data-target="features">
+      <span class="mobile-dock__icon">✨</span>
+      <span class="mobile-dock__label">Features</span>
+    </a>
+    <a href="#showcase" class="mobile-dock__link" data-target="showcase">
+      <span class="mobile-dock__icon">📱</span>
+      <span class="mobile-dock__label">Preview</span>
+    </a>
+    <a href="#download" class="mobile-dock__link" data-target="download">
+      <span class="mobile-dock__icon">🚀</span>
+      <span class="mobile-dock__label">Install</span>
+    </a>
+  </nav>
 
   <!-- ==================== HERO ==================== -->
   <section class="hero-scroll-wrapper" id="hero-scroll-wrapper">

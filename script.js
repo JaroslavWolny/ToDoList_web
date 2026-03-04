@@ -6,11 +6,15 @@
 (function () {
   'use strict';
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const isMobileViewport = () => window.innerWidth <= 768;
+
   // ──────────── Particle Canvas Background ────────────
   const canvas = document.getElementById('particles-canvas');
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
+  if (!ctx) return;
   let particles = [];
-  let animationId;
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -51,7 +55,9 @@
 
   function initParticles() {
     resizeCanvas();
-    const count = Math.min(Math.floor((canvas.width * canvas.height) / 15000), 80);
+    const particleDensity = isMobileViewport() ? 24000 : 15000;
+    const particleCap = isMobileViewport() ? 32 : 80;
+    const count = Math.min(Math.floor((canvas.width * canvas.height) / particleDensity), particleCap);
     particles = [];
     for (let i = 0; i < count; i++) {
       particles.push(new Particle());
@@ -79,6 +85,12 @@
   }
 
   function animateParticles() {
+    if (prefersReducedMotion.matches) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => p.draw());
+      return;
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     particles.forEach(p => {
@@ -86,14 +98,20 @@
       p.draw();
     });
 
-    drawConnections();
-    animationId = requestAnimationFrame(animateParticles);
+    if (!isMobileViewport()) {
+      drawConnections();
+    }
+    requestAnimationFrame(animateParticles);
   }
 
   window.addEventListener('resize', () => {
     resizeCanvas();
     // Re-init particles on significant resize
-    if (Math.abs(particles.length - Math.floor((canvas.width * canvas.height) / 15000)) > 10) {
+    const expectedCount = Math.min(
+      Math.floor((canvas.width * canvas.height) / (isMobileViewport() ? 24000 : 15000)),
+      isMobileViewport() ? 32 : 80
+    );
+    if (Math.abs(particles.length - expectedCount) > 4) {
       initParticles();
     }
   });
@@ -123,19 +141,86 @@
 
   // ──────────── Navbar Scroll Effect ────────────
   const nav = document.getElementById('nav');
+  const mobileProgressBar = document.getElementById('mobile-progress-bar');
+  const mobileDock = document.getElementById('mobile-dock');
+  const mobileDockLinks = mobileDock ? Array.from(mobileDock.querySelectorAll('.mobile-dock__link')) : [];
+  const mobileSections = ['hero', 'features', 'showcase', 'how-it-works', 'testimonials', 'download']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
   let lastScrollY = 0;
+
+  function setActiveMobileDock(targetId) {
+    if (!mobileDockLinks.length) return;
+    mobileDockLinks.forEach(link => {
+      const isActive = link.dataset.target === targetId;
+      link.classList.toggle('is-active', isActive);
+      if (isActive) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  function updateMobileHud(scrollY, prevScrollY) {
+    if (!isMobileViewport()) {
+      if (mobileDock) mobileDock.classList.remove('mobile-dock--hidden');
+      return;
+    }
+
+    if (mobileProgressBar) {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? Math.min(1, Math.max(0, scrollY / maxScroll)) : 0;
+      mobileProgressBar.style.transform = `scaleX(${progress})`;
+    }
+
+    if (mobileDock) {
+      const shouldHide = scrollY > prevScrollY + 8 && scrollY > 220 && !document.body.classList.contains('menu-open');
+      const shouldShow = scrollY < prevScrollY || scrollY < 220 || document.body.classList.contains('menu-open');
+      if (shouldHide) {
+        mobileDock.classList.add('mobile-dock--hidden');
+      } else if (shouldShow) {
+        mobileDock.classList.remove('mobile-dock--hidden');
+      }
+    }
+
+    if (mobileSections.length) {
+      const marker = scrollY + window.innerHeight * 0.38;
+      let activeSectionId = mobileSections[0].id;
+      mobileSections.forEach(section => {
+        if (marker >= section.offsetTop) {
+          activeSectionId = section.id;
+        }
+      });
+      setActiveMobileDock(activeSectionId);
+    }
+  }
 
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
+    const prevScrollY = lastScrollY;
 
-    if (scrollY > 50) {
+    if (nav && scrollY > 50) {
       nav.classList.add('scrolled');
-    } else {
+    } else if (nav) {
       nav.classList.remove('scrolled');
     }
 
+    updateMobileHud(scrollY, prevScrollY);
     lastScrollY = scrollY;
   }, { passive: true });
+
+  updateMobileHud(window.scrollY, window.scrollY);
+
+  window.addEventListener('resize', () => {
+    updateMobileHud(window.scrollY, lastScrollY);
+  }, { passive: true });
+
+  mobileDockLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (mobileDock) mobileDock.classList.remove('mobile-dock--hidden');
+    });
+  });
 
   // ──────────── Mobile Nav Toggle ────────────
   const navToggle = document.getElementById('nav-toggle');
@@ -265,15 +350,62 @@
   const heroScreens = document.querySelectorAll('.hero-screen');
   let heroTicking = false;
 
+  // ──────────── Mobile Hero Slideshow ────────────
+  let heroSlideshowTimer = null;
+  let currentSlideIndex = 0;
+
+  function initMobileHeroSlideshow() {
+    if (!heroScreens.length) return;
+
+    if (window.innerWidth > 768) {
+      if (heroSlideshowTimer) {
+        clearInterval(heroSlideshowTimer);
+        heroSlideshowTimer = null;
+        // Clear active classes so desktop scroll works
+        heroScreens.forEach(screen => {
+          screen.classList.remove('active');
+        });
+      }
+      return;
+    }
+
+    if (!heroSlideshowTimer) {
+      // Initial setup for mobile
+      heroScreens.forEach((screen, index) => {
+        screen.style.transform = '';
+        screen.style.opacity = '';
+        screen.style.visibility = '';
+        screen.style.zIndex = '';
+        if (index === currentSlideIndex) {
+          screen.classList.add('active');
+        } else {
+          screen.classList.remove('active');
+        }
+      });
+
+      heroSlideshowTimer = setInterval(() => {
+        heroScreens[currentSlideIndex].classList.remove('active');
+        currentSlideIndex = (currentSlideIndex + 1) % heroScreens.length;
+        heroScreens[currentSlideIndex].classList.add('active');
+      }, 3000);
+    }
+  }
+
+  initMobileHeroSlideshow();
+  window.addEventListener('resize', initMobileHeroSlideshow, { passive: true });
+
   function updateHeroAnimation() {
     if (!heroScrollWrapper || heroScreens.length === 0) return;
 
     if (window.innerWidth <= 768) {
-      heroScreens.forEach((screen, index) => {
-        screen.style.opacity = index === 0 ? 1 : 0;
-        screen.style.transform = 'none';
-        screen.style.zIndex = index === 0 ? 10 : 1;
-      });
+      // Mobile is handled by slideshow interval now
+      if (prefersReducedMotion.matches) {
+        heroScreens.forEach((screen, index) => {
+          screen.style.opacity = index === 0 ? 1 : 0;
+          screen.style.transform = 'none';
+          screen.style.zIndex = index === 0 ? 10 : 1;
+        });
+      }
       heroTicking = false;
       return;
     }
@@ -331,6 +463,8 @@
         heroTicking = true;
       }
     }, { passive: true });
+    window.addEventListener('resize', updateHeroAnimation, { passive: true });
+    prefersReducedMotion.addEventListener('change', updateHeroAnimation);
   }
 
 })();
