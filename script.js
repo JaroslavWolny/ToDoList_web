@@ -394,6 +394,71 @@
   initMobileHeroSlideshow();
   window.addEventListener('resize', initMobileHeroSlideshow, { passive: true });
 
+  // ──────────── Device Orientation (Gyroscope) ────────────
+  const phoneMockup = document.getElementById('hero-phone');
+  let gyroEnabled = false;
+
+  function handleOrientation(event) {
+    if (window.innerWidth > 768 || prefersReducedMotion.matches || !phoneMockup) return;
+
+    let gamma = event.gamma; // In degree in the range [-90,90]
+    let beta = event.beta;   // In degree in the range [-180,180]
+
+    if (gamma === null || beta === null) return;
+
+    // Constrain the angles to prevent extreme flipping
+    // Typical mobile holding angle beta is around 30 to 60. Let's make 45 the "flat" center.
+    let xOffset = beta - 45;
+    let yOffset = gamma;
+
+    const maxRotation = 15; // Max 15 degrees of rotation
+
+    // Normalize roughly between -1 and 1
+    const xNormalized = Math.max(-1, Math.min(1, xOffset / 45));
+    const yNormalized = Math.max(-1, Math.min(1, yOffset / 45));
+
+    // Calculate rotation and translation based on device tilt
+    // rotateX is driven by device's vertical tilt (beta)
+    // rotateY is driven by device's horizontal tilt (gamma)
+    const rotateX = xNormalized * -maxRotation + 4; // Add base 4deg from original CSS
+    const rotateY = yNormalized * maxRotation - 8;  // Add base -8deg from original CSS
+    const translateY = xNormalized * 15 + 10;       // Add base 10px from original CSS
+
+    phoneMockup.style.transform = `perspective(800px) rotateY(${rotateY}deg) rotateX(${rotateX}deg) translateY(${translateY}px)`;
+  }
+
+  function initGyroscope() {
+    if (gyroEnabled) return;
+
+    // Feature detect iOS 13+ permission API
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission()
+        .then(permissionState => {
+          if (permissionState === 'granted') {
+            window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+            gyroEnabled = true;
+          }
+        })
+        .catch(console.error);
+    } else {
+      // Non-iOS 13+ devices
+      window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+      gyroEnabled = true;
+    }
+  }
+
+  // Attempt to start gyro immediately (works on Android without prompt)
+  if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission !== 'function') {
+    window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+    gyroEnabled = true;
+  }
+
+  // For iOS, bind to the first user interaction on the phone mockup to request permission
+  if (phoneMockup) {
+    phoneMockup.addEventListener('click', initGyroscope, { once: true });
+    phoneMockup.addEventListener('touchstart', initGyroscope, { once: true, passive: true });
+  }
+
   function updateHeroAnimation() {
     if (!heroScrollWrapper || heroScreens.length === 0) return;
 
