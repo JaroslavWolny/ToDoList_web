@@ -164,7 +164,8 @@
 
   function updateMobileHud(scrollY, prevScrollY) {
     if (!isMobileViewport()) {
-      if (mobileDock) mobileDock.classList.remove('mobile-dock--hidden');
+      const wrapper = document.getElementById('mobile-dock-wrapper');
+      if (wrapper) wrapper.classList.remove('mobile-dock--hidden');
       return;
     }
 
@@ -174,13 +175,14 @@
       mobileProgressBar.style.transform = `scaleX(${progress})`;
     }
 
-    if (mobileDock) {
-      const shouldHide = scrollY > prevScrollY + 8 && scrollY > 220 && !document.body.classList.contains('menu-open');
-      const shouldShow = scrollY < prevScrollY || scrollY < 220 || document.body.classList.contains('menu-open');
-      if (shouldHide) {
-        mobileDock.classList.add('mobile-dock--hidden');
-      } else if (shouldShow) {
-        mobileDock.classList.remove('mobile-dock--hidden');
+    // The mobile dock is toggled manually now via the side button,
+    // so we don't auto-hide it on scroll anymore.
+    const wrapper = document.getElementById('mobile-dock-wrapper');
+    if (wrapper) {
+      if (document.body.classList.contains('menu-open')) {
+        wrapper.classList.add('mobile-dock--hidden');
+      } else {
+        wrapper.classList.remove('mobile-dock--hidden');
       }
     }
 
@@ -218,9 +220,33 @@
 
   mobileDockLinks.forEach(link => {
     link.addEventListener('click', () => {
-      if (mobileDock) mobileDock.classList.remove('mobile-dock--hidden');
+      const wrapper = document.getElementById('mobile-dock-wrapper');
+      if (wrapper) wrapper.classList.remove('is-open');
     });
   });
+
+  // ──────────── Mobile Dock Toggle ────────────
+  const mobileDockToggle = document.getElementById('mobile-dock-toggle');
+  const mobileDockWrapperElement = document.getElementById('mobile-dock-wrapper');
+  if (mobileDockToggle && mobileDockWrapperElement) {
+    mobileDockToggle.addEventListener('click', () => {
+      mobileDockWrapperElement.classList.toggle('is-open');
+    });
+
+    // Close on backdrop/outside click
+    document.addEventListener('click', (e) => {
+      if (mobileDockWrapperElement.classList.contains('is-open') && !mobileDockWrapperElement.contains(e.target)) {
+        mobileDockWrapperElement.classList.remove('is-open');
+      }
+    });
+
+    // Close on touchstart outside (for mobile responsiveness)
+    document.addEventListener('touchstart', (e) => {
+      if (mobileDockWrapperElement.classList.contains('is-open') && !mobileDockWrapperElement.contains(e.target)) {
+        mobileDockWrapperElement.classList.remove('is-open');
+      }
+    }, { passive: true });
+  }
 
   // ──────────── Mobile Nav Toggle ────────────
   const navToggle = document.getElementById('nav-toggle');
@@ -491,6 +517,7 @@
     heroScreens.forEach((screen, index) => {
       // We want previous images to slide up and fade out, next to slide up and fade in
       if (index === activeIndex) {
+        screen.style.visibility = 'visible';
         // active screen fading out as we scroll down to next segment
         screen.style.opacity = 1; // It's visible, starts fading out halfway maybe? Actually let's keep it visible and just slide
         screen.style.transform = `translateY(${-segmentProgress * 10}%) scale(${1 - segmentProgress * 0.05})`;
@@ -502,15 +529,18 @@
           screen.style.opacity = 1;
         }
       } else if (index === activeIndex + 1) {
+        screen.style.visibility = 'visible';
         // next screen sliding in from bottom
         screen.style.opacity = segmentProgress < 0.5 ? segmentProgress * 2 : 1;
         screen.style.transform = `translateY(${(1 - segmentProgress) * 15}%) scale(${0.95 + segmentProgress * 0.05})`;
         screen.style.zIndex = 10;
       } else if (index < activeIndex) {
+        screen.style.visibility = 'hidden';
         screen.style.opacity = 0;
         screen.style.transform = `translateY(-15%) scale(0.95)`;
         screen.style.zIndex = 1;
       } else {
+        screen.style.visibility = 'hidden';
         screen.style.opacity = 0;
         screen.style.transform = `translateY(15%) scale(0.95)`;
         screen.style.zIndex = 1;

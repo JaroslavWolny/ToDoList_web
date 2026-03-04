@@ -60,24 +60,29 @@
     <span class="mobile-progress__bar" id="mobile-progress-bar"></span>
   </div>
 
-  <nav class="mobile-dock" id="mobile-dock" aria-label="Quick mobile navigation">
-    <a href="#hero" class="mobile-dock__link is-active" data-target="hero">
-      <span class="mobile-dock__icon">⚔️</span>
-      <span class="mobile-dock__label">Home</span>
-    </a>
-    <a href="#features" class="mobile-dock__link" data-target="features">
-      <span class="mobile-dock__icon">✨</span>
-      <span class="mobile-dock__label">Features</span>
-    </a>
-    <a href="#showcase" class="mobile-dock__link" data-target="showcase">
-      <span class="mobile-dock__icon">📱</span>
-      <span class="mobile-dock__label">Preview</span>
-    </a>
-    <a href="#download" class="mobile-dock__link" data-target="download">
-      <span class="mobile-dock__icon">🚀</span>
-      <span class="mobile-dock__label">Install</span>
-    </a>
-  </nav>
+  <div class="mobile-dock-wrapper" id="mobile-dock-wrapper">
+    <button class="mobile-dock-toggle" id="mobile-dock-toggle" aria-label="Toggle navigation">
+      <span class="mobile-dock-toggle__icon">◀</span>
+    </button>
+    <nav class="mobile-dock" id="mobile-dock" aria-label="Quick mobile navigation">
+      <a href="#hero" class="mobile-dock__link is-active" data-target="hero">
+        <span class="mobile-dock__icon">⚔️</span>
+        <span class="mobile-dock__label">Home</span>
+      </a>
+      <a href="#features" class="mobile-dock__link" data-target="features">
+        <span class="mobile-dock__icon">✨</span>
+        <span class="mobile-dock__label">Features</span>
+      </a>
+      <a href="#showcase" class="mobile-dock__link" data-target="showcase">
+        <span class="mobile-dock__icon">📱</span>
+        <span class="mobile-dock__label">Preview</span>
+      </a>
+      <a href="#download" class="mobile-dock__link" data-target="download">
+        <span class="mobile-dock__icon">🚀</span>
+        <span class="mobile-dock__label">Install</span>
+      </a>
+    </nav>
+  </div>
 
   <!-- ==================== HERO ==================== -->
   <section class="hero-scroll-wrapper" id="hero-scroll-wrapper">
